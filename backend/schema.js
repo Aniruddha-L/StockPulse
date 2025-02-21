@@ -63,6 +63,7 @@ const salesSchema = mongoose.Schema({
     }
 })
 
+//Users
 const userSchema = mongoose.Schema({
     _id:{
         type:Number, 
@@ -107,8 +108,22 @@ const inventorySchema=mongoose.Schema({
     Promotion:String
 })
 
+//Log
+const logSchema = Mongoose.Schema({
+    _id:{
+        type:Number, 
+        required:true
+    },
+    userName:String,
+    lastLogon:Date,
+    state:{
+        type:Boolean,
+        default:true
+    }
+})
 export const Store =  mongoose.model('Store',storeSchema, "Store")
 export const Purchase =  mongoose.model('Purchase',purchaseSchema, "Purchase")
 export const Sales =  mongoose.model('Sales',salesSchema, "Sales")
 export const Inv =  mongoose.model('Inventory',inventorySchema, "Inventory")
 export const User = mongoose.model('User', userSchema, 'User')
+export const Log = Mongoose.model('Log', logSchema, 'Log')

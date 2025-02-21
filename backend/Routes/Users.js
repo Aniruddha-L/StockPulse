@@ -11,7 +11,7 @@ userRouter.get('/', async(req, res)=>{
                 "msg":"No users found"
             })
         }
-        return res.status(200).json(allUsers)
+        return res.status(201).json(allUsers)
     } catch (error) {
         console.error(error)
         return res.status(401).json({
@@ -75,6 +75,30 @@ userRouter.get('/userName/:name', async(req, res)=>{
         console.error(error)
         return res.status(401).json({
             "msg":"Error in fetching data"
+        })
+    }
+})
+userRouter.get('/Login', (req, res)=>{
+    try {
+        if (!(req.body.uName || req.body.Passwd)){
+            return res.status(400).json({
+                "msg":"Mising Fields"
+            })
+        }
+        const uname = req.body.uName
+        const passwd = req.body.Passwd
+        const user = User.find({userName:uname,passwd:passwd })
+        if (user.length === 0){
+            return res.status(405).json({
+                "msg":"Login Failed"
+            })
+        }
+        return res.status(202).json({
+            "msg":"Login Success"
+        })
+    } catch (error) {
+        res.status(401).json({
+            "msg":"Error in fetchin data"
         })
     }
 })
